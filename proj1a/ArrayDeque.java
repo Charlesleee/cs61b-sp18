@@ -82,11 +82,9 @@ public class ArrayDeque<T> {
         T item = items[(nextFirst + 1) % items.length];
         nextFirst = (nextFirst + 1) % items.length;
         size--;
-
         if ((float) size / items.length < 0.25) {
             resizeL();
         }
-
         return item;
     }
 
@@ -94,37 +92,13 @@ public class ArrayDeque<T> {
         T item = items[(nextLast + items.length - 1) % items.length];
         nextLast = (nextLast + items.length - 1) % items.length;
         size--;
-
         if ((float) size / items.length < 0.25) {
             resizeL();
         }
-
         return item;
     }
 
     public T get(int index) {
         return items[(nextFirst + 1 + index) % items.length];
-    }
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        arrayDeque.addFirst(0);
-        arrayDeque.addFirst(1);
-        arrayDeque.addFirst(2);
-        arrayDeque.addFirst(3);
-        arrayDeque.addFirst(4);
-        arrayDeque.addFirst(5);
-        arrayDeque.addFirst(6);
-        arrayDeque.addFirst(7);
-        arrayDeque.addFirst(8);
-        arrayDeque.get(8);
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
-        arrayDeque.removeLast();
     }
 }
