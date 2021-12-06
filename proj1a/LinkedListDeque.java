@@ -3,7 +3,7 @@ public class LinkedListDeque<T> {
     private LinkedListNode last;
     private int size;
 
-    public class LinkedListNode {
+    private class LinkedListNode {
         LinkedListNode prev;
         T item;
         LinkedListNode next;
@@ -31,24 +31,24 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
-        sentinel = new LinkedListNode();
-        LinkedListNode cursor = other.sentinel.next;
-        while (cursor != null) {
-            addLast(cursor.item);
-            cursor = cursor.next;
-        }
-    }
+//    public LinkedListDeque(LinkedListDeque other) {
+//        sentinel = new LinkedListNode();
+//        LinkedListNode cursor = other.sentinel.next;
+//        while (cursor != null) {
+//            addLast(cursor.item);
+//            cursor = cursor.next;
+//        }
+//    }
 
     public void addFirst(T item) {
         sentinel.next = new LinkedListNode(sentinel, item, sentinel.next);
-        last.prev = sentinel.next;
+        sentinel.next.next.prev = sentinel.next;
         size++;
     }
 
     public void addLast(T item) {
-        last.prev.next = new LinkedListNode(last.prev, item, last);
-        last.prev = last.prev.next;
+        last.prev = new LinkedListNode(last.prev, item, last);
+        last.prev.prev.next = last.prev;
         size++;
     }
 
@@ -71,6 +71,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         LinkedListNode first = sentinel.next;
         sentinel.next = first.next;
         first.next.prev = sentinel;
@@ -79,6 +82,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         LinkedListNode end = last.prev;
         last.prev = end.prev;
         end.prev.next = last;
@@ -106,7 +112,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T getR(int index , LinkedListNode node) {
+    private T getR(int index, LinkedListNode node) {
         if (index == 0) {
             return node.item;
         } else {
