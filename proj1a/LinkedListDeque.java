@@ -100,6 +100,7 @@ public class LinkedListDeque<T> {
         LinkedListNode node = sentinel.next;
         while (i < index) {
             node = node.next;
+            i++;
         }
         return node.item;
     }

@@ -12,20 +12,20 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
     }
 
-    public ArrayDeque(ArrayDeque other) {
-        size = other.size();
-        nextFirst = other.nextFirst;
-        nextLast = other.nextLast;
-        System.arraycopy(other.items, 0, items, 0, other.items.length);
-    }
+//    public ArrayDeque(ArrayDeque other) {
+//        size = other.size();
+//        nextFirst = other.nextFirst;
+//        nextLast = other.nextLast;
+//        System.arraycopy(other.items, 0, items, 0, other.items.length);
+//    }
 
-    public void resizeH() {
+    private void resizeH() {
         T[] arr = (T[]) new Object[items.length * 2];
         System.arraycopy(items, 0, arr, 0, size);
         items = arr;
     }
 
-    public void resizeL() {
+    private void resizeL() {
         T[] arr = (T[]) new Object[items.length / 2];
         System.arraycopy(items, 0, arr, 0, size);
         items = arr;
@@ -89,6 +89,6 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return items[index];
+        return items[nextFirst + 1 + index];
     }
 }
