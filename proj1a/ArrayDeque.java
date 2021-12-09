@@ -27,7 +27,7 @@ public class ArrayDeque<T> {
             x = (x + 1) % items.length;
         }
         nextFirst = 0;
-        nextLast = items.length + 1;
+        nextLast = size + 1;
         items = arr;
     }
 
@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
             x = (x + 1) % items.length;
         }
         nextFirst = 0;
-        nextLast = items.length + 1;
+        nextLast = size + 1;
         items = arr;
     }
 
