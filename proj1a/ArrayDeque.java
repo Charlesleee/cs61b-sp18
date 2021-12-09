@@ -12,34 +12,27 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
     }
 
-//    public ArrayDeque(ArrayDeque other) {
-//        size = other.size();
-//        nextFirst = other.nextFirst;
-//        nextLast = other.nextLast;
-//        System.arraycopy(other.items, 0, items, 0, other.items.length);
-//    }
-
     private void resizeH() {
         T[] arr = (T[]) new Object[items.length * 2];
         int x = (nextFirst + 1) % items.length;
-        for (int i = 1; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             arr[i] = items[x];
             x = (x + 1) % items.length;
         }
-        nextFirst = 0;
-        nextLast = size + 1;
+        nextFirst = items.length - 1;
+        nextLast = size;
         items = arr;
     }
 
     private void resizeL() {
         T[] arr = (T[]) new Object[items.length / 2];
         int x = (nextFirst + 1) % items.length;
-        for (int i = 1; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             arr[i] = items[x];
             x = (x + 1) % items.length;
         }
-        nextFirst = 0;
-        nextLast = size + 1;
+        nextFirst = items.length - 1;
+        nextLast = size;
         items = arr;
     }
 
@@ -79,20 +72,26 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         T item = items[(nextFirst + 1) % items.length];
         nextFirst = (nextFirst + 1) % items.length;
         size--;
-        if ((float) size / items.length < 0.25) {
+        if (items.length >= 16 && size < (items.length / 4)) {
             resizeL();
         }
         return item;
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         T item = items[(nextLast + items.length - 1) % items.length];
         nextLast = (nextLast + items.length - 1) % items.length;
         size--;
-        if ((float) size / items.length < 0.25) {
+        if (items.length >= 16 && size < (items.length / 4)) {
             resizeL();
         }
         return item;
